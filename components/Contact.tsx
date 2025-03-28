@@ -1,10 +1,9 @@
 "use client"
 
-import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Copy, Check } from "lucide-react"
+import { MapPin, Phone, Mail, Clock, Facebook, Instagram } from "lucide-react"
 import { useState, useEffect } from "react"
 
 const Contact = () => {
-  const [copiedField, setCopiedField] = useState<string | null>(null)
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -32,30 +31,16 @@ const Contact = () => {
     }
   }, [])
 
-  const handleCopy = async (text: string, field: string) => {
-    try {
-      await navigator.clipboard.writeText(text)
-      setCopiedField(field)
-      setTimeout(() => setCopiedField(null), 2000)
-    } catch (err) {
-      console.error('Failed to copy text: ', err)
-    }
-  }
-
   const contactInfo = [
     {
       icon: <MapPin className="w-6 h-6 text-primary" />,
       title: "Adresse",
-      content: "Residence Michelet Saint-Jacques, 26 Chem. Joseph Aiguier, 13009 Marseille",
-      field: "address",
-      copyable: true
+      content: "Residence Michelet Saint-Jacques, 26 Chem. Joseph Aiguier, 13009 Marseille"
     },
     {
       icon: <Phone className="w-6 h-6 text-primary" />,
       title: "Téléphone",
-      content: "06 30 96 98 99",
-      field: "phone",
-      copyable: true
+      content: "06 30 96 98 99"
     },
     {
       icon: <Clock className="w-6 h-6 text-primary" />,
@@ -69,8 +54,7 @@ const Contact = () => {
           vendredi 09:00 - 19:00<br />
           samedi - dimanche fermé
         </>
-      ),
-      copyable: false
+      )
     }
   ]
 
@@ -107,22 +91,7 @@ const Contact = () => {
                   </div>
                   <div className="ml-4 flex-grow">
                     <h3 className="font-semibold text-lg mb-1 text-foreground">{info.title}</h3>
-                    <div className="flex items-start gap-2">
-                      <p className="text-muted-foreground">{info.content}</p>
-                      {info.copyable && (
-                        <button
-                          onClick={() => handleCopy(info.content as string, info.field)}
-                          className="p-1 hover:bg-secondary rounded-md transition-colors"
-                          aria-label={`Copier ${info.title.toLowerCase()}`}
-                        >
-                          {copiedField === info.field ? (
-                            <Check className="w-4 h-4 text-primary" />
-                          ) : (
-                            <Copy className="w-4 h-4 text-primary" />
-                          )}
-                        </button>
-                      )}
-                    </div>
+                    <p className="text-muted-foreground">{info.content}</p>
                   </div>
                 </div>
               ))}
