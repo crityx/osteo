@@ -8,6 +8,22 @@ const Footer = () => {
 
   const sections = [
     {
+      title: "Services",
+      links: [
+        { label: "Ostéopathie", href: "#services" },
+        { label: "Respiration", href: "#services" },
+        { label: "Coaching", href: "#services" },
+      ]
+    },
+    {
+      title: "Informations",
+      links: [
+        { label: "À propos", href: "#about" },
+        { label: "FAQ", href: "#faq" },
+        { label: "Contact", href: "#contact" },
+      ]
+    },
+    {
       title: "Contact rapide",
       content: [
         { 
@@ -29,9 +45,9 @@ const Footer = () => {
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Footer Content */}
-        <div className="py-12 md:py-16 grid md:grid-cols-2 gap-8 md:gap-12">
-          {/* Logo and Description */}
+        {/* Main Footer Content /}
+        <div className="py-12 md:py-16 grid md:grid-cols-3 gap-8 md:gap-12">
+          {/ Logo and Description */}
           <div>
             <Link href="/" className="text-primary-foreground font-mystical text-3xl tracking-wider">
               Breathe
@@ -42,22 +58,37 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Contact Section */}
+          {/* Navigation Sections */}
           {sections.map((section, index) => (
             <div key={index}>
               <h3 className="text-primary-foreground font-semibold mb-4">
                 {section.title}
               </h3>
-              <ul className="space-y-3">
-                {section.content.map((item, idx) => (
-                  <li key={idx} className="flex items-start">
-                    <span className="text-secondary/80 mt-1 mr-2">
-                      {item.icon}
-                    </span>
-                    <span className="text-sm text-secondary/80">{item.text}</span>
-                  </li>
-                ))}
-              </ul>
+              {'links' in section ? (
+                <ul className="space-y-2">
+                  {section.links.map((link, idx) => (
+                    <li key={idx}>
+                      <Link 
+                        href={link.href}
+                        className="text-secondary/80 hover:text-primary-foreground transition-colors"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <ul className="space-y-3">
+                  {section.content.map((item, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <span className="text-secondary/80 mt-1 mr-2">
+                        {item.icon}
+                      </span>
+                      <span className="text-sm text-secondary/80">{item.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
         </div>
