@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 180 20% 99%;
+    --foreground: 180 25% 10%;
+    --card: 180 20% 99%;
+    --card-foreground: 180 25% 10%;
+    --popover: 180 20% 99%;
+    --popover-foreground: 180 25% 10%;
+    --primary: 174 75% 35%;
+    --primary-foreground: 174 75% 97%;
+    --secondary: 158 40% 92%;
+    --secondary-foreground: 158 45% 25%;
+    --muted: 180 10% 96%;
+    --muted-foreground: 180 5% 45%;
+    --accent: 158 40% 92%;
+    --accent-foreground: 158 45% 25%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 180 15% 90%;
+    --input: 180 15% 90%;
+    --ring: 174 75% 35%;
+    --radius: 0.5rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@font-face {
+  font-family: 'Mystical';
+  src: url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap');
+}
+
+.font-mystical {
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.05em;
+}
+
+/* Animation de navigation */
+.nav-link {
+  @apply relative text-primary-foreground transition-colors duration-300;
+}
+
+.nav-link::after {
+  content: '';
+  @apply absolute left-0 bottom-0 w-0 h-0.5 bg-secondary transition-all duration-300 ease-out;
+}
+
+.nav-link:hover::after {
+  @apply w-full;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.5s ease-out forwards;
+}
+
+.animate-slide-out {
+  animation: slide-out 0.5s ease-out forwards;
+}
+
+.menu-icon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.menu-icon svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.menu-icon .menu {
+  opacity: 1;
+  transform: rotate(0deg);
+  pointer-events: auto;
+}
+
+.menu-icon .close {
+  opacity: 0;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.menu-icon.open .menu {
+  opacity: 0;
+  transform: rotate(90deg);
+  pointer-events: none;
+}
+
+.menu-icon.open .close {
+  opacity: 1;
+  transform: rotate(0deg);
+  pointer-events: auto;
+}
+
+/* Nouveaux effets de bouton modernes */
+.modern-button {
+  @apply relative overflow-hidden transition-all duration-300 ease-out;
+  background: linear-gradient(
+    110deg,
+    hsl(var(--primary)) 0%,
+    hsl(var(--primary)) 50%,
+    hsl(var(--primary)) 100%
+  );
+  background-size: 200% 100%;
+}
+
+.modern-button::before {
+  content: '';
+  @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+  background: linear-gradient(
+    110deg,
+    hsl(var(--primary)) 0%,
+    hsl(var(--secondary)) 50%,
+    hsl(var(--primary)) 100%
+  );
+  background-size: 200% 100%;
+}
+
+.modern-button:hover {
+  transform: translateY(-2px);
+}
+
+.modern-button:hover::before {
+  @apply opacity-100;
+  animation: shine 1.5s ease-out infinite;
+}
+
+.modern-button:active {
+  transform: translateY(0);
+}
+
+.modern-button span {
+  @apply relative z-10 text-primary-foreground;
+}
+
+@keyframes shine {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* Bouton inverse pour le header */
+.modern-button-inverse {
+  @apply relative overflow-hidden transition-all duration-300 ease-out bg-primary-foreground;
+  background: linear-gradient(
+    110deg,
+    hsl(var(--primary-foreground)) 0%,
+    hsl(var(--secondary)) 50%,
+    hsl(var(--primary-foreground)) 100%
+  );
+  background-size: 200% 100%;
+}
+
+.modern-button-inverse::before {
+  content: '';
+  @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+  background: linear-gradient(
+    110deg,
+    hsl(var(--secondary)) 0%,
+    hsl(var(--primary-foreground)) 50%,
+    hsl(var(--secondary)) 100%
+  );
+  background-size: 200% 100%;
+}
+
+.modern-button-inverse:hover {
+  transform: translateY(-2px);
+}
+
+.modern-button-inverse:hover::before {
+  @apply opacity-100;
+  animation: shine 1.5s ease-out infinite;
+}
+
+.modern-button-inverse:active {
+  transform: translateY(0);
+}
+
+.modern-button-inverse span {
+  @apply relative z-10 text-primary;
+}
